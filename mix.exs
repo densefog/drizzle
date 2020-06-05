@@ -10,6 +10,7 @@ defmodule Drizzle.MixProject do
       app: @app,
       version: @version,
       elixir: "~> 1.9",
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       archives: [nerves_bootstrap: "~> 1.8"],
       start_permanent: Mix.env() == :prod,
       build_embedded: true,

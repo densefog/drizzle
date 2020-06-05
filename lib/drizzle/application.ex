@@ -17,16 +17,16 @@ defmodule Drizzle.Application do
   # List all child processes to be supervised
   def children(_target) do
     [
+      # Web UI
+      DrizzleUiWeb.Telemetry,
+      {Phoenix.PubSub, name: DrizzleUi.PubSub},
+      DrizzleUiWeb.Endpoint,
       # Starts a worker by calling: Drizzle.Worker.start_link(arg)
       {Drizzle.WeatherData, []},
       {Drizzle.IO, %{}},
       {Drizzle.Scheduler, %{}},
       {Drizzle.Forecaster, %{}},
-      {Drizzle.TodaysEvents, []},
-      # Web UI
-      DrizzleUiWeb.Telemetry,
-      {Phoenix.PubSub, name: DrizzleUi.PubSub},
-      DrizzleUiWeb.Endpoint
+      {Drizzle.TodaysEvents, []}
     ]
   end
 

@@ -3,7 +3,7 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-import Config
+use Mix.Config
 
 # import_config "../../drizzle_ui/config/config.exs"
 
@@ -36,13 +36,13 @@ config :drizzle,
     sun: [
       # {:zone1, :morning, 5},
       # {:zone2, :morning, 5},
-      {:zone1, :evening, 20},
-      {:zone2, :evening, 20},
-      {:zone3, :evening, 20},
-      {:zone4, :evening, 20},
-      {:zone5, :evening, 20},
-      {:zone6, :evening, 20},
-      {:zone7, :evening, 20}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 30},
+      {:zone5, :evening, 30},
+      {:zone6, :evening, 30},
+      {:zone7, :evening, 30}
     ],
     mon: [
       {:zone1, :evening, 0},
@@ -63,13 +63,13 @@ config :drizzle,
       {:zone7, :evening, 0}
     ],
     wed: [
-      {:zone1, :evening, 20},
-      {:zone2, :evening, 20},
-      {:zone3, :evening, 20},
-      {:zone4, :evening, 20},
-      {:zone5, :evening, 20},
-      {:zone6, :evening, 20},
-      {:zone7, :evening, 20}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 30},
+      {:zone5, :evening, 30},
+      {:zone6, :evening, 30},
+      {:zone7, :evening, 30}
     ],
     thu: [
       {:zone1, :evening, 0},
@@ -81,13 +81,13 @@ config :drizzle,
       {:zone7, :evening, 0}
     ],
     fri: [
-      {:zone1, :evening, 20},
-      {:zone2, :evening, 20},
-      {:zone3, :evening, 20},
-      {:zone4, :evening, 20},
-      {:zone5, :evening, 20},
-      {:zone6, :evening, 20},
-      {:zone7, :evening, 20}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 30},
+      {:zone5, :evening, 30},
+      {:zone6, :evening, 30},
+      {:zone7, :evening, 30}
     ],
     sat: [
       {:zone1, :evening, 0},
