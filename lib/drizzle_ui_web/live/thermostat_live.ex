@@ -38,7 +38,11 @@ defmodule DrizzleUiWeb.ThermostatLive do
   end
 
   def handle_event("cancel_all", _value, socket) do
-    socket = update(socket, :zones, &ZoneManager.cancel_all/1)
+    socket =
+      socket
+      |> update(:zones, &ZoneManager.cancel_all/1)
+      |> assign(schedule: ZoneManager.get_current_schedule())
+
     {:noreply, socket}
   end
 

@@ -42,6 +42,7 @@ defmodule DrizzleUi.ZoneManager do
 
   alias DrizzleUi.Zone
   alias Drizzle.IO, as: DrizzleIO
+  alias Drizzle.TodaysEvents
 
   @zones 1..7 |> Enum.map(&Integer.to_string/1)
 
@@ -61,6 +62,8 @@ defmodule DrizzleUi.ZoneManager do
   end
 
   def cancel_all(zones) do
+    TodaysEvents.reset()
+
     Enum.reduce(zones, %{}, fn {zone_number, %Zone{} = zone}, acc ->
       DrizzleIO.deactivate_zone(zone.atom)
 
