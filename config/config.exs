@@ -36,13 +36,13 @@ config :drizzle,
     sun: [
       # {:zone1, :morning, 5},
       # {:zone2, :morning, 5},
-      {:zone1, :evening, 30},
-      {:zone2, :evening, 30},
-      {:zone3, :evening, 30},
-      {:zone4, :evening, 30},
-      {:zone5, :evening, 30},
-      {:zone6, :evening, 30},
-      {:zone7, :evening, 30}
+      {:zone1, :evening, 40},
+      {:zone2, :evening, 40},
+      {:zone3, :evening, 40},
+      {:zone4, :evening, 40},
+      {:zone5, :evening, 40},
+      {:zone6, :evening, 40},
+      {:zone7, :evening, 40}
     ],
     mon: [
       {:zone1, :evening, 0},
@@ -63,13 +63,13 @@ config :drizzle,
       {:zone7, :evening, 0}
     ],
     wed: [
-      {:zone1, :evening, 30},
-      {:zone2, :evening, 30},
-      {:zone3, :evening, 30},
-      {:zone4, :evening, 30},
-      {:zone5, :evening, 30},
-      {:zone6, :evening, 30},
-      {:zone7, :evening, 30}
+      {:zone1, :evening, 40},
+      {:zone2, :evening, 40},
+      {:zone3, :evening, 40},
+      {:zone4, :evening, 40},
+      {:zone5, :evening, 40},
+      {:zone6, :evening, 40},
+      {:zone7, :evening, 40}
     ],
     thu: [
       {:zone1, :evening, 0},
@@ -81,13 +81,13 @@ config :drizzle,
       {:zone7, :evening, 0}
     ],
     fri: [
-      {:zone1, :evening, 30},
-      {:zone2, :evening, 30},
-      {:zone3, :evening, 30},
-      {:zone4, :evening, 30},
-      {:zone5, :evening, 30},
-      {:zone6, :evening, 30},
-      {:zone7, :evening, 30}
+      {:zone1, :evening, 0},
+      {:zone2, :evening, 0},
+      {:zone3, :evening, 0},
+      {:zone4, :evening, 0},
+      {:zone5, :evening, 0},
+      {:zone6, :evening, 0},
+      {:zone7, :evening, 0}
     ],
     sat: [
       {:zone1, :evening, 0},

@@ -11,6 +11,33 @@ defmodule DrizzleUi.ZoneManager do
     "6" => %DrizzleUi.Zone{minutes: 0, zone: "6", atom: :zone6},
     "7" => %DrizzleUi.Zone{minutes: 0, zone: "7", atom: :zone7}
   }
+
+  [
+    {2255, :on, :zone1},
+    {2258, :off, :zone1},
+    {2259, :on, :zone2},
+    {2302, :off, :zone2},
+    {2303, :on, :zone3},
+    {2306, :off, :zone3},
+    {2307, :on, :zone4},
+    {2310, :off, :zone4},
+    {2311, :on, :zone5},
+    {2314, :off, :zone5},
+    {2315, :on, :zone6},
+    {2318, :off, :zone6},
+    {2319, :on, :zone7},
+    {2322, :off, :zone7}
+  ]
+
+  [
+    {:zone1, :evening, 3},
+    {:zone2, :evening, 3},
+    {:zone3, :evening, 3},
+    {:zone4, :evening, 3},
+    {:zone5, :evening, 3},
+    {:zone6, :evening, 3},
+    {:zone7, :evening, 3}
+  ]
   """
 
   alias DrizzleUi.Zone
@@ -39,11 +66,12 @@ defmodule DrizzleUi.ZoneManager do
 
       Map.put(acc, zone_number, %Zone{zone | minutes: 0})
     end)
+    |> IO.inspect()
   end
 
   def set_to_full(zones) do
     Enum.reduce(zones, %{}, fn {zone_number, zone}, acc ->
-      Map.put(acc, zone_number, %Zone{zone | minutes: 20})
+      Map.put(acc, zone_number, %Zone{zone | minutes: 30})
     end)
   end
 

@@ -61,7 +61,7 @@ defmodule Drizzle.MixProject do
       {:nerves_system_x86_64, "~> 1.11", runtime: false, targets: :x86_64},
       {:circuits_gpio, "~> 0.4"},
       {:darkskyx, "~> 0.1.4"},
-      # {:poison, "~> 3.0", override: true},
+      {:poison, "~> 3.0", override: true},
 
       # UI 
       {:phoenix, "~> 1.5.1"},
