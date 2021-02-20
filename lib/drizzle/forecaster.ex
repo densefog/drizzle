@@ -15,6 +15,8 @@ defmodule Drizzle.Forecaster do
 
   def init(state) do
     Logger.info("Starting forecaster")
+    # TODO: Remove
+    Weather.get_todays_forecast()
     schedule_work()
     {:ok, state}
   end

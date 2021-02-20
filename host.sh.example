@@ -1,0 +1,8 @@
+export MIX_TARGET="host"
+export CIRCUITS_MIX_ENV="test"
+export NERVES_NETWORK_SSID=""
+export NERVES_NETWORK_PSK=""
+export NERVES_NETWORK_KEY_MGMT="WPA-PSK"
+export LATITUDE="42.803630"
+export LONGITUDE="-86.164283"
+export DARKSKY_API_KEY=""

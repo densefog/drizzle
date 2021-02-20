@@ -12,8 +12,8 @@ config :drizzle, target: Mix.target()
 config :drizzle,
   location: %{latitude: System.get_env("LATITUDE"), longitude: System.get_env("LONGITUDE")},
   utc_offset: -4,
-  winter_months: [:jan, :feb, :mar, :apr, :nov, :dec],
-  # winter_months: [],
+  # winter_months: [:jan, :feb, :mar, :apr, :nov, :dec],
+  winter_months: [],
   soil_moisture_sensor: nil,
   # soil_moisture_sensor: %{pin: 26, min: 0, max: 539},
   zone_pins: %{
@@ -28,8 +28,8 @@ config :drizzle,
   },
   # watering times are defined as key {start_time, end_time}
   available_watering_times: %{
-    morning: {800, 1100},
-    #evening: {2059, 2359}
+    morning: {800, 1100}
+    # evening: {2059, 2359}
   },
   # schedule is defined as {zone, watering_time_key, duration_in_minutes}
   schedule: %{
@@ -111,12 +111,13 @@ config :drizzle, DrizzleUiWeb.Endpoint,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :darkskyx,
-  api_key: System.get_env("DARKSKY_API_KEY"),
-  defaults: [
-    units: "us",
-    lang: "en"
-  ]
+config :forecastr,
+  appid: System.get_env("FORECASTR_API_KEY"),
+  backend: Forecastr.OWM,
+  # 10 minutes by default
+  ttl: 10 * 60_000
+
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 # Customize non-Elixir parts of the firmware.  See
 # https://hexdocs.pm/nerves/advanced-configuration.html for details.

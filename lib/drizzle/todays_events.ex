@@ -50,8 +50,6 @@ defmodule Drizzle.TodaysEvents do
   end
 
   defp reduce_event_groups(key, list) do
-    list |> IO.inspect(label: "list")
-
     factor = Drizzle.Weather.weather_adjustment_factor()
     Logger.info("Weather factor: #{inspect(factor)}")
     {start_time, _stop_time} = Map.get(@available_watering_times, key)

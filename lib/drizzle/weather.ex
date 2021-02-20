@@ -34,13 +34,17 @@ defmodule Drizzle.Weather do
   end
 
   def get_todays_forecast do
+    latitude = Map.get(@forecast_location, :latitude)
+    longitude = Map.get(@forecast_location, :longitude)
+
     {:ok, data} =
-      Darkskyx.forecast(
-        Map.get(@forecast_location, :latitude),
-        Map.get(@forecast_location, :longitude),
-        %Darkskyx{
-          exclude: "currently,minutely"
-        }
+      Forecastr.forecast(
+        :hourly,
+        nil,
+        latitude,
+        longitude,
+        %{units: :imperial},
+        Forecastr.Renderer.JSON
       )
 
     # retrieving the next 24 hours of weather
@@ -54,9 +58,13 @@ defmodule Drizzle.Weather do
   defp temperature_adjustment(_low, high) when high >= @high_temp, do: 1.33
   defp temperature_adjustment(_low, _high), do: 1
 
-  defp precipitation_adjustment(prec) when prec >= 1.0, do: 0
-  defp precipitation_adjustment(prec) when prec >= 0.5, do: 0.5
-  defp precipitation_adjustment(prec) when prec >= 0.25, do: 0.75
+  # This is the accumulation of rain for 24-36 hours,
+  # if we are shooting for 1.5 inches a week that's 38.1 mm
+  # with 3 waterings per week that's 12.7 mm per day.
+  # We'll start this with if our sum is more than 10mm in
+  # 36 hours we stop, 5mm we are at half, else we are full.
+  defp precipitation_adjustment(prec) when prec >= 10, do: 0
+  defp precipitation_adjustment(prec) when prec >= 5, do: 0.5
   defp precipitation_adjustment(_prec), do: 1
 
   defp soil_moisture_adjustment(nil), do: 1
@@ -92,8 +100,8 @@ defmodule Drizzle.Weather do
   end
 
   defp temps_and_precips(data) do
-    Enum.map(data["hourly"]["data"], fn d ->
-      {d["temperature"], d["precipIntensity"], d["precipProbability"]}
+    Enum.map(data["hourly"], fn d ->
+      {d["temp"], d["rain"], d["pop"]}
     end)
   end
 
@@ -101,12 +109,14 @@ defmodule Drizzle.Weather do
   defp weather_info([]), do: {@default_temp, @default_temp, 0}
 
   defp weather_info(data) do
-    with {cumulative_amount, cumulative_percent} <-
-           Enum.reduce(data, {0, 0}, fn {_, am, pr}, {acc_a, acc_b} ->
-             {acc_a + am, acc_b + pr}
+    # Coming from OWM, rain parameter is empty unless they
+    # are predicting rain. So anything above 0 is planning
+    # on rain accumulation.
+    with rainfall <-
+           Enum.reduce(data, 0, fn {_, am, _pr}, acc ->
+             acc + am
            end),
-         {low, high} <- Enum.min_max_by(data, fn {temp, _, _} -> temp end),
-         rainfall <- cumulative_amount * cumulative_percent do
+         {low, high} <- Enum.min_max_by(data, fn {temp, _, _} -> temp end) do
       {low_temp, _, _} = low
       {high_temp, _, _} = high
       {low_temp, high_temp, rainfall}

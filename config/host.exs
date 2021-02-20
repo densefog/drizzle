@@ -104,6 +104,7 @@ config :drizzle, DrizzleUiWeb.Endpoint,
   ]
 
 # Do not include metadata nor timestamps in development logs
+# All logs going to ringlogger
 config :logger, :console, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
