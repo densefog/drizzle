@@ -9,7 +9,7 @@ To get running:
 5. cd into 'assets' folder and run (from phoenix):
    `npm install && node node_modules/webpack/bin/webpack.js --mode development`
 6. cd back to root and run `iex -S mix phx.server` to run locally
-7. To deploy run `mix firmware` and `mix firmware.burn` (after sourcing rpi3.sh)
+7. To deploy run `mix firmware` (and `mix firmware.burn` if writing to sd card)
 8. Run `./upload.sh` to send to running hardware.
 
 ## Learn more
