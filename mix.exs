@@ -60,9 +60,9 @@ defmodule Drizzle.MixProject do
       {:nerves_system_bbb, "~> 2.6", runtime: false, targets: :bbb},
       {:nerves_system_x86_64, "~> 1.11", runtime: false, targets: :x86_64},
       {:circuits_gpio, "~> 0.4"},
-      {:forecastr, git: "git@github.com:densefog/forecastr.git", branch: "ts-add_onecall_owm"},
       {:tzdata, "~> 1.0.5"},
       {:poison, "~> 3.0", override: true},
+      {:httpoison, "~> 1.4"},
 
       # UI
       {:phoenix, "~> 1.5.1"},

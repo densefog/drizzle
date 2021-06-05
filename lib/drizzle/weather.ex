@@ -3,10 +3,6 @@ defmodule Drizzle.Weather do
   This module handles getting the weather forecast.
   """
 
-  @forecast_location Application.get_env(:drizzle, :location, %{
-                       latitude: 39.3898838,
-                       longitude: -104.8287546
-                     })
   @winter_months Application.get_env(:drizzle, :winter_months, [])
   @low_temp 40
   @high_temp 90
@@ -34,18 +30,7 @@ defmodule Drizzle.Weather do
   end
 
   def get_todays_forecast do
-    latitude = Map.get(@forecast_location, :latitude)
-    longitude = Map.get(@forecast_location, :longitude)
-
-    {:ok, data} =
-      Forecastr.forecast(
-        :hourly,
-        nil,
-        latitude,
-        longitude,
-        %{units: :imperial},
-        Forecastr.Renderer.JSON
-      )
+    {:ok, data} = Drizzle.OWM.query()
 
     # retrieving the next 24 hours of weather
     data

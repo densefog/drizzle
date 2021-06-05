@@ -11,6 +11,7 @@ config :drizzle, target: Mix.target()
 
 config :drizzle,
   location: %{latitude: System.get_env("LATITUDE"), longitude: System.get_env("LONGITUDE")},
+  appid: System.get_env("OWM_API_KEY"),
   utc_offset: -4,
   # winter_months: [:jan, :feb, :mar, :apr, :nov, :dec],
   winter_months: [],
@@ -110,12 +111,6 @@ config :drizzle, DrizzleUiWeb.Endpoint,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
-config :forecastr,
-  appid: System.get_env("FORECASTR_API_KEY"),
-  backend: Forecastr.OWM,
-  # 10 minutes by default
-  ttl: 10 * 60_000
 
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
