@@ -9,15 +9,16 @@ defmodule Drizzle.Forecaster do
 
   require Logger
 
+  @hour 60 * 60 * 1000
+  @minute 60 * 1000
+
   def start_link(_args) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(state) do
     Logger.info("Starting forecaster")
-    # TODO: Remove
-    Weather.get_todays_forecast()
-    schedule_work()
+    schedule_work(@minute)
     {:ok, state}
   end
 
@@ -26,12 +27,12 @@ defmodule Drizzle.Forecaster do
     # Get the forecast from Darksky and update the Agent
     Weather.get_todays_forecast()
 
-    schedule_work()
+    schedule_work(@hour)
     {:noreply, state}
   end
 
-  defp schedule_work() do
+  defp schedule_work(time) do
     # Every Hour
-    Process.send_after(self(), :work, 60 * 60 * 1000)
+    Process.send_after(self(), :work, time)
   end
 end

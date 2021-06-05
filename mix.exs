@@ -60,7 +60,7 @@ defmodule Drizzle.MixProject do
       {:nerves_system_bbb, "~> 2.6", runtime: false, targets: :bbb},
       {:nerves_system_x86_64, "~> 1.11", runtime: false, targets: :x86_64},
       {:circuits_gpio, "~> 0.4"},
-      {:tzdata, "~> 1.0.5"},
+      # {:tzdata, "~> 1.1"},
       {:poison, "~> 3.0", override: true},
       {:httpoison, "~> 1.4"},
 

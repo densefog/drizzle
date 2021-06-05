@@ -112,7 +112,7 @@ config :drizzle, DrizzleUiWeb.Endpoint,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+# config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 # Customize non-Elixir parts of the firmware.  See
 # https://hexdocs.pm/nerves/advanced-configuration.html for details.

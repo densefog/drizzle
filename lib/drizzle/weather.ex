@@ -30,13 +30,13 @@ defmodule Drizzle.Weather do
   end
 
   def get_todays_forecast do
-    {:ok, data} = Drizzle.OWM.query()
-
-    # retrieving the next 24 hours of weather
-    data
-    |> temps_and_precips()
-    |> Enum.slice(0..23)
-    |> Drizzle.WeatherData.update()
+    with {:ok, data} <- Drizzle.OWM.query() do
+      # retrieving the next 24 hours of weather
+      data
+      |> temps_and_precips()
+      |> Enum.slice(0..23)
+      |> Drizzle.WeatherData.update()
+    end
   end
 
   defp temperature_adjustment(low, _high) when low <= @low_temp, do: 0
