@@ -13,8 +13,8 @@ config :drizzle,
   location: %{latitude: System.get_env("LATITUDE"), longitude: System.get_env("LONGITUDE")},
   appid: System.get_env("OWM_API_KEY"),
   utc_offset: -4,
-  # winter_months: [:jan, :feb, :mar, :apr, :nov, :dec],
-  winter_months: [],
+  winter_months: [:jan, :feb, :mar, :apr, :oct, :nov, :dec],
+  # winter_months: [],
   soil_moisture_sensor: nil,
   # soil_moisture_sensor: %{pin: 26, min: 0, max: 539},
   zone_pins: %{
@@ -29,75 +29,73 @@ config :drizzle,
   },
   # watering times are defined as key {start_time, end_time}
   available_watering_times: %{
-    # morning: {800, 1100}
-    evening: {2059, 2359}
+    morning: {800, 1100},
+    evening: {2030, 2359}
   },
   # schedule is defined as {zone, watering_time_key, duration_in_minutes}
   schedule: %{
     sun: [
-      # {:zone1, :morning, 5},
-      # {:zone2, :morning, 5},
-      {:zone1, :evening, 40},
-      {:zone2, :evening, 40},
-      {:zone3, :evening, 40},
-      {:zone4, :evening, 0},
-      {:zone5, :evening, 0},
-      {:zone6, :evening, 0},
-      {:zone7, :evening, 0}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ],
     mon: [
-      {:zone1, :evening, 0},
-      {:zone2, :evening, 0},
-      {:zone3, :evening, 0},
-      {:zone4, :evening, 40},
-      {:zone5, :evening, 40},
-      {:zone6, :evening, 40},
-      {:zone7, :evening, 40}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ],
     tue: [
-      {:zone1, :evening, 40},
-      {:zone2, :evening, 40},
-      {:zone3, :evening, 40},
-      {:zone4, :evening, 0},
-      {:zone5, :evening, 0},
-      {:zone6, :evening, 0},
-      {:zone7, :evening, 0}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ],
     wed: [
-      {:zone1, :evening, 0},
-      {:zone2, :evening, 0},
-      {:zone3, :evening, 0},
-      {:zone4, :evening, 40},
-      {:zone5, :evening, 40},
-      {:zone6, :evening, 40},
-      {:zone7, :evening, 40}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ],
     thu: [
-      {:zone1, :evening, 40},
-      {:zone2, :evening, 40},
-      {:zone3, :evening, 40},
-      {:zone4, :evening, 0},
-      {:zone5, :evening, 0},
-      {:zone6, :evening, 0},
-      {:zone7, :evening, 0}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ],
     fri: [
-      {:zone1, :evening, 0},
-      {:zone2, :evening, 0},
-      {:zone3, :evening, 0},
-      {:zone4, :evening, 40},
-      {:zone5, :evening, 40},
-      {:zone6, :evening, 40},
-      {:zone7, :evening, 40}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ],
     sat: [
-      {:zone1, :evening, 40},
-      {:zone2, :evening, 40},
-      {:zone3, :evening, 40},
-      {:zone4, :evening, 0},
-      {:zone5, :evening, 0},
-      {:zone6, :evening, 0},
-      {:zone7, :evening, 0}
+      {:zone1, :evening, 30},
+      {:zone2, :evening, 30},
+      {:zone3, :evening, 30},
+      {:zone4, :evening, 20},
+      {:zone5, :morning, 30},
+      {:zone6, :morning, 20},
+      {:zone7, :morning, 30}
     ]
   }
 

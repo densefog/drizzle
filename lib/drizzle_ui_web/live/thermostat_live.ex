@@ -9,6 +9,8 @@ defmodule DrizzleUiWeb.ThermostatLive do
       |> assign(zones: ZoneManager.new_zones())
       |> assign(schedule: ZoneManager.get_current_schedule())
 
+    :timer.send_interval(30000, self(), :update)
+
     {:ok, socket}
   end
 
@@ -47,12 +49,22 @@ defmodule DrizzleUiWeb.ThermostatLive do
   end
 
   def handle_event("set_to_full", _value, socket) do
+    socket = put_flash(socket, :info, "Schedule being reset, please wait...")
     socket = update(socket, :zones, &ZoneManager.set_to_full/1)
+
     {:noreply, socket}
   end
 
   def handle_event("run_selected", _value, socket) do
     socket = update(socket, :zones, &ZoneManager.run_selected/1)
+    {:noreply, socket}
+  end
+
+  def handle_info(:update, socket) do
+    socket =
+      socket
+      |> assign(schedule: ZoneManager.get_current_schedule())
+
     {:noreply, socket}
   end
 end

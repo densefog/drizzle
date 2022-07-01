@@ -26,6 +26,10 @@ defmodule Drizzle.TodaysEvents do
     GenServer.call(__MODULE__, :reset)
   end
 
+  def restart() do
+    GenServer.call(__MODULE__, :restart)
+  end
+
   def current_state() do
     GenServer.call(__MODULE__, :current_state)
   end
@@ -37,6 +41,10 @@ defmodule Drizzle.TodaysEvents do
 
   def handle_call(:reset, _from, _state) do
     {:reply, :ok, []}
+  end
+
+  def handle_call(:restart, _from, _state) do
+    {:reply, :ok, nil}
   end
 
   def handle_call(:current_state, _from, state) do

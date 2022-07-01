@@ -46,10 +46,10 @@ defmodule Drizzle.Weather do
   # This is the accumulation of rain for 24-36 hours,
   # if we are shooting for 1.5 inches a week that's 38.1 mm
   # with 3 waterings per week that's 12.7 mm per day.
-  # We'll start this with if our sum is more than 10mm in
-  # 36 hours we stop, 5mm we are at half, else we are full.
-  defp precipitation_adjustment(prec) when prec >= 10, do: 0
-  defp precipitation_adjustment(prec) when prec >= 5, do: 0.5
+  # We'll start this with if our sum is more than 3mm in
+  # 36 hours we stop, 1mm we are at half, else we are full.
+  defp precipitation_adjustment(prec) when prec >= 20, do: 0
+  defp precipitation_adjustment(prec) when prec >= 10, do: 0.5
   defp precipitation_adjustment(_prec), do: 1
 
   defp soil_moisture_adjustment(nil), do: 1

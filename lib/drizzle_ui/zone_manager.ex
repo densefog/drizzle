@@ -1,6 +1,6 @@
 defmodule DrizzleUi.ZoneManager do
   @moduledoc """
-  Manages zones in a map. Zones look like: 
+  Manages zones in a map. Zones look like:
 
   %{
     "1" => %DrizzleUi.Zone{minutes: 20, zone: "1", atom: :zone1},
@@ -73,8 +73,10 @@ defmodule DrizzleUi.ZoneManager do
   end
 
   def set_to_full(zones) do
+    TodaysEvents.restart()
+
     Enum.reduce(zones, %{}, fn {zone_number, zone}, acc ->
-      Map.put(acc, zone_number, %Zone{zone | minutes: 30})
+      Map.put(acc, zone_number, %Zone{zone | minutes: nil})
     end)
   end
 

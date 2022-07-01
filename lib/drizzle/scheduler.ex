@@ -58,6 +58,7 @@ defmodule Drizzle.Scheduler do
 
   defp execute_scheduled_events do
     if current_time() == 0 || is_nil(TodaysEvents.current_state()) do
+      IO.puts("Restarting todays events")
       TodaysEvents.reset()
       TodaysEvents.update(Map.get(@schedule, current_day_of_week()))
     end
