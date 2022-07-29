@@ -9,8 +9,8 @@ defmodule Drizzle.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.9",
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      elixir: "~> 1.11",
+      compilers: [:phoenix] ++ Mix.compilers(),
       archives: [nerves_bootstrap: "~> 1.8"],
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
@@ -40,7 +40,7 @@ defmodule Drizzle.MixProject do
   defp deps do
     [
       # Dependencies for all targets
-      {:nerves, "~> 1.6.0", runtime: false},
+      {:nerves, "~> 1.8.0", runtime: false},
       {:shoehorn, "~> 0.6"},
       {:ring_logger, "~> 0.6"},
       {:toolshed, "~> 0.2"},
@@ -48,7 +48,7 @@ defmodule Drizzle.MixProject do
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.6", targets: @all_targets},
       {:nerves_pack, "~> 0.2", targets: @all_targets},
-      {:nerves_time, "~> 0.3.0", targets: @all_targets},
+      {:nerves_time, "~> 0.4.0", targets: @all_targets},
 
       # Dependencies for specific targets
       {:nerves_system_rpi, "~> 1.11", runtime: false, targets: :rpi},
@@ -59,20 +59,20 @@ defmodule Drizzle.MixProject do
       {:nerves_system_rpi4, "~> 1.11", runtime: false, targets: :rpi4},
       {:nerves_system_bbb, "~> 2.6", runtime: false, targets: :bbb},
       {:nerves_system_x86_64, "~> 1.11", runtime: false, targets: :x86_64},
-      {:circuits_gpio, "~> 0.4"},
+      {:circuits_gpio, "~> 1.0.1"},
       # {:tzdata, "~> 1.1"},
-      {:poison, "~> 3.0", override: true},
+      {:poison, "~> 5.0", override: true},
       {:httpoison, "~> 1.4"},
 
       # UI
-      {:phoenix, "~> 1.5.1"},
-      {:phoenix_live_view, "~> 0.12.0"},
+      {:phoenix, "~> 1.6.0"},
+      {:phoenix_live_view, "~> 0.17.0"},
       {:floki, ">= 0.0.0", only: :test},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 3.2"},
       # {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.2.0"},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
+      {:phoenix_live_dashboard, "~> 0.6.5"},
+      {:telemetry_metrics, "~> 0.6.0"},
+      {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"}

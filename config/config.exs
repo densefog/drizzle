@@ -3,9 +3,10 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-use Mix.Config
+import Config
 
-# import_config "../../drizzle_ui/config/config.exs"
+# Enable the Nerves integration with Mix
+Application.start(:nerves_bootstrap)
 
 config :drizzle, target: Mix.target()
 
