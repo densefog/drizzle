@@ -3,11 +3,11 @@ defmodule Drizzle.Weather do
   This module handles getting the weather forecast.
   """
 
-  @winter_months Application.get_env(:drizzle, :winter_months, [])
+  @winter_months Application.compile_env(:drizzle, :winter_months, [])
   @low_temp 40
   @high_temp 90
   @default_temp 50
-  @soil_moisture_sensor Application.get_env(:drizzle, :soil_moisture_sensor, nil)
+  @soil_moisture_sensor Application.compile_env(:drizzle, :soil_moisture_sensor, nil)
 
   @doc """
   weather_adjustment_factor/0 determines adjustments to make to watering time

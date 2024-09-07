@@ -10,7 +10,7 @@ defmodule Drizzle.MixProject do
       app: @app,
       version: @version,
       elixir: "~> 1.11",
-      compilers: [:phoenix] ++ Mix.compilers(),
+      compilers: [] ++ Mix.compilers(),
       archives: [nerves_bootstrap: "~> 1.11"],
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
@@ -32,10 +32,10 @@ defmodule Drizzle.MixProject do
   defp deps do
     [
       # Dependencies for all targets
-      {:nerves, "~> 1.7.16 or ~> 1.8.0", runtime: false},
+      {:nerves, "~> 1.11.1", runtime: false},
       {:shoehorn, "~> 0.9.1"},
-      {:ring_logger, "~> 0.8.5"},
-      {:toolshed, "~> 0.2.26"},
+      {:ring_logger, "~> 0.11.3"},
+      {:toolshed, "~> 0.4"},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.13.0", targets: @all_targets},
@@ -47,20 +47,21 @@ defmodule Drizzle.MixProject do
       # bumps to Nerves systems. Since these include Linux kernel and Erlang
       # version updates, please review their release notes in case
       # changes to your application are needed.
-      {:nerves_system_rpi3, "~> 1.18.4", runtime: false, targets: :rpi3},
-      {:circuits_gpio, "~> 1.0.1"},
+      {:nerves_system_rpi3, "~> 1.28.1", runtime: false, targets: :rpi3},
+      {:circuits_gpio, "~> 2.1"},
       # {:tzdata, "~> 1.1"},
-      {:poison, "~> 5.0", override: true},
-      {:httpoison, "~> 1.4"},
+      {:poison, "~> 6.0"},
+      {:httpoison, "~> 2.2"},
 
       # UI
-      {:phoenix, "~> 1.6.0"},
-      {:phoenix_live_view, "~> 0.17.0"},
+      {:phoenix, "~> 1.7"},
+      {:phoenix_live_view, "~> 0.20.17"},
       {:floki, ">= 0.0.0", only: :test},
-      {:phoenix_html, "~> 3.2"},
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_html_helpers, "~> 1.0"},
       # {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.6.5"},
-      {:telemetry_metrics, "~> 0.6.0"},
+      {:phoenix_live_dashboard, "~> 0.8.4"},
+      {:telemetry_metrics, "~> 1.0.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},

@@ -8,9 +8,9 @@ defmodule Drizzle.Scheduler do
 
   alias Drizzle.TodaysEvents
 
-  @schedule Application.get_env(:drizzle, :schedule, %{})
+  @schedule Application.compile_env(:drizzle, :schedule, %{})
   @days_as_atoms {:zero, :mon, :tue, :wed, :thu, :fri, :sat, :sun}
-  @utc_offset Application.get_env(:drizzle, :utc_offset, 0)
+  @utc_offset Application.compile_env(:drizzle, :utc_offset, 0)
 
   def start_link(_args) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)

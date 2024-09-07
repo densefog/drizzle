@@ -7,8 +7,8 @@ defmodule Drizzle.IO do
   use GenServer
   require Logger
 
-  @gpio_module Application.get_env(:drizzle, :gpio_module, Circuits.GPIO)
-  @zone_pins Application.get_env(:drizzle, :zone_pins, %{})
+  @gpio_module Application.compile_env(:drizzle, :gpio_module, Circuits.GPIO)
+  @zone_pins Application.compile_env(:drizzle, :zone_pins, %{})
 
   def start_link(_args) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)

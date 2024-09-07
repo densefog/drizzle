@@ -6,7 +6,7 @@ defmodule Drizzle.TodaysEvents do
 
   require Logger
 
-  @available_watering_times Application.get_env(:drizzle, :available_watering_times, %{})
+  @available_watering_times Application.compile_env(:drizzle, :available_watering_times, %{})
 
   def start_link(_args) do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)

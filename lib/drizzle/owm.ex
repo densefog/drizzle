@@ -4,12 +4,12 @@ defmodule Drizzle.OWM do
   """
   require Logger
 
-  @location Application.get_env(:drizzle, :location, %{
+  @location Application.compile_env(:drizzle, :location, %{
               latitude: 39.3898838,
               longitude: -104.8287546
             })
 
-  @appid Application.get_env(:drizzle, :appid)
+  @appid Application.compile_env(:drizzle, :appid)
 
   def query() do
     endpoint = owm_api_endpoint()

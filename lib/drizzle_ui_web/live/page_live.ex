@@ -1,5 +1,6 @@
 defmodule DrizzleUiWeb.PageLive do
   use DrizzleUiWeb, :live_view
+  use Gettext, backend: DrizzleUiWeb.Gettext
 
   @impl true
   def mount(_params, _session, socket) do

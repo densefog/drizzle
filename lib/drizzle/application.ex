@@ -8,6 +8,8 @@ defmodule Drizzle.Application do
 
   use Application
 
+  @target Application.compile_env(:drizzle, :target)
+
   @impl true
   def start(_type, _args) do
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -32,9 +34,7 @@ defmodule Drizzle.Application do
     ]
   end
 
-  def target() do
-    Application.get_env(:drizzle, :target)
-  end
+  def target(), do: @target
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.

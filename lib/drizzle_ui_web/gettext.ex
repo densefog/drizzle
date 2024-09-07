@@ -20,5 +20,5 @@ defmodule DrizzleUiWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :drizzle
+  use Gettext.Backend, otp_app: :drizzle
 end
