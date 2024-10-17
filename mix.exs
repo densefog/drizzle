@@ -38,7 +38,7 @@ defmodule Drizzle.MixProject do
       {:toolshed, "~> 0.4"},
 
       # Dependencies for all targets except :host
-      {:nerves_runtime, "~> 0.13.0", targets: @all_targets},
+      {:nerves_runtime, "~> 0.13.0"},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
       {:nerves_time, "~> 0.4.0", targets: @all_targets},
 

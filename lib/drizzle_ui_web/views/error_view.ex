@@ -1,5 +1,5 @@
 defmodule DrizzleUiWeb.ErrorView do
-  use DrizzleUiWeb, :view
+  use DrizzleUiWeb, :html
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

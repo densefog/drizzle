@@ -1,3 +1,5 @@
 defmodule DrizzleUiWeb.LayoutView do
-  use DrizzleUiWeb, :view
+  use DrizzleUiWeb, :html
+
+  embed_templates("layouts/*")
 end

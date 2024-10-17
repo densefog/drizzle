@@ -5,8 +5,8 @@
   <%= for {_zone_number, zone} <- @zones do %>
   <div class="slidecontainer">
     Zone <%= zone.zone %>:
-    <input name="zone[<%=zone.zone%>]" type="range" min="0" max="60" value="<%= zone.minutes %>" class="slider" step="1">
-    &nbsp;Minutes: <span><%= zone.minutes %></span></p>
+    <input type="range" min="0" max="60" value={zone.minutes} class="slider" step="1">
+    &nbsp;Minutes: <span><%= zone.minutes %></span>
   </div>
 <% end %>
 </form>
