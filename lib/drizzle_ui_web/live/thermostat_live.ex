@@ -14,7 +14,7 @@ defmodule DrizzleUiWeb.ThermostatLive do
     {:ok, socket}
   end
 
-  def handle_event("validate", %{"_target" => ["zone", zone_number], "zone" => zones}, socket) do
+  def handle_event("validate", %{"_target" => [zone_number_str]} = params, socket) do
     # %{
     # "_target" => ["zone", "3"],
     # "zone" => %{
@@ -28,7 +28,9 @@ defmodule DrizzleUiWeb.ThermostatLive do
     # }
     # }
 
-    minutes = String.to_integer(zones[zone_number])
+    params |> IO.inspect(label: "params")
+    minutes = String.to_integer(Map.get(params, zone_number_str)) |> IO.inspect(label: "minutes")
+    "zone_" <> zone_number = zone_number_str
     socket = update(socket, :zones, &ZoneManager.update(&1, zone_number, minutes))
 
     {:noreply, socket}
