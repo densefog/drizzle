@@ -13,7 +13,8 @@ config :drizzle, DrizzleUiWeb.Endpoint,
       "--mode",
       "development",
       "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
+      cd: Path.expand("../assets", __DIR__),
+      env: %{"NODE_OPTIONS" => "--openssl-legacy-provider"}
     ]
   ]
 

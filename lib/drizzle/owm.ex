@@ -73,17 +73,17 @@ defmodule Drizzle.OWM do
   end
 
   defp fetch_weather_information(endpoint, opts) do
-    case HTTPoison.get(endpoint, [], params: opts) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        {:ok, Poison.decode!(body)}
+    case Req.get(endpoint, params: opts) do
+      {:ok, %Req.Response{status: 200, body: body}} ->
+        {:ok, body}
 
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
+      {:ok, %Req.Response{status: 404}} ->
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Response{status_code: 400}} ->
+      {:ok, %Req.Response{status: 400}} ->
         {:error, :not_found}
 
-      {:ok, %HTTPoison.Response{status_code: 401}} ->
+      {:ok, %Req.Response{status: 401}} ->
         {:error, :api_key_invalid}
 
       error = {:error, _reason} ->
