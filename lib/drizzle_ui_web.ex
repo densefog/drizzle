@@ -99,7 +99,7 @@ defmodule DrizzleUiWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      # import DrizzleUiWeb.CoreComponents
+      import DrizzleUiWeb.CoreComponents
       import DrizzleUiWeb.Gettext
 
       # Shortcut for generating JS commands

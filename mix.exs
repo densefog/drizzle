@@ -24,7 +24,7 @@ defmodule Drizzle.MixProject do
   def application do
     [
       mod: {Drizzle.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 
@@ -51,7 +51,7 @@ defmodule Drizzle.MixProject do
       {:circuits_gpio, "~> 2.1"},
       # {:tzdata, "~> 1.1"},
       {:poison, "~> 6.0"},
-      {:httpoison, "~> 2.2"},
+      {:req, "~> 0.4.0"},
 
       # UI
       {:phoenix, "~> 1.7"},
