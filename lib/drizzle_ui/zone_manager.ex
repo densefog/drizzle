@@ -82,6 +82,7 @@ defmodule DrizzleUi.ZoneManager do
 
   def run_selected(zones) do
     with {:ok, %Zone{} = zone} <- find_zone_running(zones) do
+      IO.puts("1")
       DrizzleIO.activate_zone_for_time(zone.atom, zone.minutes)
     end
 

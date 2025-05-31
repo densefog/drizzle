@@ -39,24 +39,26 @@ defmodule Drizzle.IO do
   def handle_call({:activate_zone, zone}, _from, state) do
     Logger.info("Activating zone: #{inspect(zone)}")
 
-    with :ok <- @gpio_module.write(state[zone], 0) do
-      {:noreply, state}
+    case @gpio_module.write(state[zone], 0) do
+      :ok -> {:reply, :ok, state}
+      error -> {:reply, error, state}
     end
-
-    {:reply, :ok, state}
   end
 
   def handle_call({:activate_zone_for_time, zone, minutes}, _from, state)
       when is_integer(minutes) and is_atom(zone) do
     Logger.info("Activating zone '#{inspect(zone)}' for #{minutes} minutes.")
+    Logger.debug("state: #{inspect(state)}")
+    Logger.debug("zone: #{inspect(zone)}")
 
-    with :ok <- @gpio_module.write(state[zone], 0) do
-      {:noreply, state}
+    case @gpio_module.write(state[zone], 0) |> IO.inspect(label: "gpio write") do
+      :ok ->
+        Process.send_after(self(), {:deactivate_zone, zone}, minutes * 60 * 1000)
+        |> IO.inspect(label: "send after")
+        {:reply, :ok, state}
+      error ->
+        {:reply, error, state}
     end
-
-    Process.send_after(self(), {:deactivate_zone, zone}, minutes * 60 * 1000)
-
-    {:reply, :ok, state}
   end
 
   def handle_call({:deactivate_zone, zone}, _from, state) do
@@ -68,8 +70,11 @@ defmodule Drizzle.IO do
   def handle_info({:deactivate_zone, zone}, state) do
     Logger.info("Deactivating zone: #{inspect(zone)}")
 
-    with :ok <- @gpio_module.write(state[zone], 1) do
-      {:noreply, state}
+    case @gpio_module.write(state[zone], 1) do
+      :ok -> {:noreply, state}
+      error -> 
+        Logger.error("Failed to deactivate zone #{inspect(zone)}: #{inspect(error)}")
+        {:noreply, state}
     end
   end
 

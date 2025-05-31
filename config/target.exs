@@ -15,7 +15,8 @@ config :logger, backends: [RingLogger]
 config :nerves,
   erlinit: [
     hostname_pattern: "nerves-%s"
-  ]
+  ],
+  alternate_exec: "/usr/bin/run_erl /tmp/ /tmp exec"
 
 # Configure the device for SSH IEx prompt access and firmware updates
 #
