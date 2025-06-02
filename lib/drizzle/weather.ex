@@ -6,7 +6,6 @@ defmodule Drizzle.Weather do
   @winter_months Application.compile_env(:drizzle, :winter_months, [])
   @low_temp 40
   @high_temp 90
-  @default_temp 50
   @soil_moisture_sensor Application.compile_env(:drizzle, :soil_moisture_sensor, nil)
 
   @doc """
@@ -20,8 +19,6 @@ defmodule Drizzle.Weather do
     else
       {low, high, precipitation} =
         Drizzle.WeatherData.current_state()
-        |> Enum.filter(&(!is_nil(&1)))
-        |> weather_info()
 
       temperature_adjustment(low, high)
       |> Kernel.*(precipitation_adjustment(precipitation))
@@ -30,12 +27,14 @@ defmodule Drizzle.Weather do
   end
 
   def get_todays_forecast do
-    with {:ok, data} <- Drizzle.OWM.query() do
+    with {:ok,
+          %{
+            "chance_of_rain" => chance_of_rain,
+            "max_temp" => max_temp,
+            "min_temp" => min_temp
+          }} <- Drizzle.WWO.query() do
       # retrieving the next 24 hours of weather
-      data
-      |> temps_and_precips()
-      |> Enum.slice(0..23)
-      |> Drizzle.WeatherData.update()
+      Drizzle.WeatherData.update(min_temp, max_temp, chance_of_rain)
     end
   end
 
@@ -48,8 +47,8 @@ defmodule Drizzle.Weather do
   # with 3 waterings per week that's 12.7 mm per day.
   # We'll start this with if our sum is more than 3mm in
   # 36 hours we stop, 1mm we are at half, else we are full.
-  defp precipitation_adjustment(prec) when prec >= 20, do: 0
-  defp precipitation_adjustment(prec) when prec >= 10, do: 0.5
+  defp precipitation_adjustment(prec) when prec >= 50, do: 0
+  defp precipitation_adjustment(prec) when prec >= 30, do: 0.5
   defp precipitation_adjustment(_prec), do: 1
 
   defp soil_moisture_adjustment(nil), do: 1
@@ -81,32 +80,6 @@ defmodule Drizzle.Weather do
       val when val > moisture_delta * 0.85 -> 1.90
       val when val > moisture_delta * 0.1 -> 2.0
       _ -> 2.0
-    end
-  end
-
-  defp temps_and_precips(data) do
-    Enum.map(data["hourly"], fn d ->
-      {d["temp"], d["rain"], d["pop"]}
-    end)
-  end
-
-  # Used when application has just started up
-  defp weather_info([]), do: {@default_temp, @default_temp, 0}
-
-  defp weather_info(data) do
-    # Coming from OWM, rain parameter is empty unless they
-    # are predicting rain. So anything above 0 is planning
-    # on rain accumulation.
-    with rainfall <-
-           Enum.reduce(data, 0, fn {_, am, _pr}, acc ->
-             acc + am
-           end),
-         {low, high} <- Enum.min_max_by(data, fn {temp, _, _} -> temp end) do
-      {low_temp, _, _} = low
-      {high_temp, _, _} = high
-      {low_temp, high_temp, rainfall}
-    else
-      _err -> {:error, "unknown error"}
     end
   end
 

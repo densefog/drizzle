@@ -9,13 +9,14 @@ defmodule Drizzle.WeatherData do
   end
 
   def init(_state) do
-    state = for _n <- 1..12, do: nil
+    # low, high, precipitation
+    state = {50, 50, 0}
 
     {:ok, state}
   end
 
-  def update(next_24_hours) do
-    GenServer.call(__MODULE__, {:update, next_24_hours})
+  def update(low, high, precipitation) do
+    GenServer.call(__MODULE__, {:update, {low, high, precipitation}})
   end
 
   def reset() do
@@ -26,13 +27,13 @@ defmodule Drizzle.WeatherData do
     GenServer.call(__MODULE__, :current_state)
   end
 
-  def handle_call({:update, next_24_hours}, _from, state) do
-    state = Enum.slice(state, 1..12) ++ next_24_hours
-    {:reply, :ok, state}
+  def handle_call({:update, new_weather}, _from, _state) do
+    {:reply, :ok, new_weather}
   end
 
   def handle_call(:reset, _from, _state) do
-    {:reply, :ok, []}
+    state = {50, 50, 0}
+    {:reply, :ok, state}
   end
 
   def handle_call(:current_state, _from, state) do

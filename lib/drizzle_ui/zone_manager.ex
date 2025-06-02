@@ -69,7 +69,6 @@ defmodule DrizzleUi.ZoneManager do
 
       Map.put(acc, zone_number, %Zone{zone | minutes: 0})
     end)
-    |> IO.inspect()
   end
 
   def set_to_full(zones) do
@@ -82,11 +81,10 @@ defmodule DrizzleUi.ZoneManager do
 
   def run_selected(zones) do
     with {:ok, %Zone{} = zone} <- find_zone_running(zones) do
-      IO.puts("1")
       DrizzleIO.activate_zone_for_time(zone.atom, zone.minutes)
     end
 
-    zones |> IO.inspect(label: "Running zones")
+    zones
   end
 
   def get_current_schedule() do

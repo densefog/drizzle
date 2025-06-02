@@ -15,7 +15,7 @@ config :drizzle,
     latitude: System.get_env("LATITUDE") || "42.803630",
     longitude: System.get_env("LONGITUDE") || "-86.164283"
   },
-  appid: System.get_env("OWM_API_KEY"),
+  appid: System.get_env("WWO_API_KEY"),
   utc_offset: -4,
   winter_months: [:jan, :feb, :mar, :apr, :oct, :nov, :dec],
   # winter_months: [],
