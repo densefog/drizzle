@@ -30,7 +30,7 @@ defmodule DrizzleUiWeb.ThermostatLive do
     # }
     # }
 
-    minutes = String.to_integer(Map.get(params, zone_number_str)) |> IO.inspect(label: "minutes")
+    minutes = String.to_integer(Map.get(params, zone_number_str))
     "zone_" <> zone_number = zone_number_str
     socket = update(socket, :zones, &ZoneManager.update(&1, zone_number, minutes))
 

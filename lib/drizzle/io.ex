@@ -51,11 +51,11 @@ defmodule Drizzle.IO do
     Logger.debug("state: #{inspect(state)}")
     Logger.debug("zone: #{inspect(zone)}")
 
-    case @gpio_module.write(state[zone], 0) |> IO.inspect(label: "gpio write") do
+    case @gpio_module.write(state[zone], 0) do
       :ok ->
         Process.send_after(self(), {:deactivate_zone, zone}, minutes * 60 * 1000)
-        |> IO.inspect(label: "send after")
         {:reply, :ok, state}
+
       error ->
         {:reply, error, state}
     end
@@ -71,8 +71,10 @@ defmodule Drizzle.IO do
     Logger.info("Deactivating zone: #{inspect(zone)}")
 
     case @gpio_module.write(state[zone], 1) do
-      :ok -> {:noreply, state}
-      error -> 
+      :ok ->
+        {:noreply, state}
+
+      error ->
         Logger.error("Failed to deactivate zone #{inspect(zone)}: #{inspect(error)}")
         {:noreply, state}
     end

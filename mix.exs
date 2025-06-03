@@ -47,11 +47,11 @@ defmodule Drizzle.MixProject do
       # bumps to Nerves systems. Since these include Linux kernel and Erlang
       # version updates, please review their release notes in case
       # changes to your application are needed.
-      {:nerves_system_rpi3, "~> 1.28.1", runtime: false, targets: :rpi3},
+      {:nerves_system_rpi3, "~> 1.31", runtime: false, targets: :rpi3},
       {:circuits_gpio, "~> 2.1"},
       # {:tzdata, "~> 1.1"},
       {:poison, "~> 6.0"},
-      {:req, "~> 0.4.0"},
+      {:req, "~> 0.5.0"},
 
       # UI
       {:phoenix, "~> 1.7"},
@@ -61,7 +61,7 @@ defmodule Drizzle.MixProject do
       {:phoenix_html_helpers, "~> 1.0"},
       {:phoenix_live_reload, "~> 1.6", only: :dev},
       {:phoenix_live_dashboard, "~> 0.8.4"},
-      {:telemetry_metrics, "~> 1.0.0"},
+      {:telemetry_metrics, "~> 1.1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
