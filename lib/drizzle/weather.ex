@@ -38,8 +38,8 @@ defmodule Drizzle.Weather do
     end
   end
 
-  defp temperature_adjustment(low, _high) when low <= @low_temp, do: 0
-  defp temperature_adjustment(_low, high) when high >= @high_temp, do: 1.33
+  defp temperature_adjustment(low, _high) when low < @low_temp, do: 0
+  defp temperature_adjustment(_low, high) when high > @high_temp, do: 1.33
   defp temperature_adjustment(_low, _high), do: 1
 
   # This is the accumulation of rain for 24-36 hours,

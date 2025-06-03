@@ -59,7 +59,7 @@ defmodule Drizzle.MixProject do
       {:floki, ">= 0.0.0", only: :test},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_html_helpers, "~> 1.0"},
-      # {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_reload, "~> 1.6", only: :dev},
       {:phoenix_live_dashboard, "~> 0.8.4"},
       {:telemetry_metrics, "~> 1.0.0"},
       {:telemetry_poller, "~> 1.0"},

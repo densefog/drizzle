@@ -33,4 +33,14 @@
   <% end %>
   </tbody>
 </table>
- <%= inspect(@schedule) %>
+<div>
+  <b>Weather</b><br />
+  Low: <%= @weather.low %><br />
+  High: <%= @weather.high %><br />
+  Precipitation: <%= @weather.precip %><br />
+</div>
+<br />
+<div>
+  <b>WeatherAdjustment Factor</b><br />
+  <%= inspect(@weather_adjustment_factor) %>
+</div>

@@ -8,6 +8,8 @@ defmodule DrizzleUiWeb.ThermostatLive do
       socket
       |> assign(zones: ZoneManager.new_zones())
       |> assign(schedule: ZoneManager.get_current_schedule())
+      |> assign(weather: get_weather())
+      |> assign(weather_adjustment_factor: Drizzle.Weather.weather_adjustment_factor())
 
     :timer.send_interval(30000, self(), :update)
 
@@ -64,7 +66,14 @@ defmodule DrizzleUiWeb.ThermostatLive do
     socket =
       socket
       |> assign(schedule: ZoneManager.get_current_schedule())
+      |> assign(weather: get_weather())
+      |> assign(weather_adjustment_factor: Drizzle.Weather.weather_adjustment_factor())
 
     {:noreply, socket}
+  end
+
+  defp get_weather() do
+    {low, high, precip} = Drizzle.WeatherData.current_state()
+    %{low: low, high: high, precip: precip}
   end
 end
