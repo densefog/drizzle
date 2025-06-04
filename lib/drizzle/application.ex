@@ -29,7 +29,6 @@ defmodule Drizzle.Application do
       {Drizzle.WeatherData, []},
       {Drizzle.IO, %{}},
       {Drizzle.Scheduler, %{}},
-      {Drizzle.Forecaster, %{}},
       {Drizzle.TodaysEvents, []}
     ]
   end

@@ -7,6 +7,7 @@ defmodule Drizzle.Scheduler do
   require Logger
 
   alias Drizzle.TodaysEvents
+  alias Drizzle.Weather
 
   @schedule Application.compile_env(:drizzle, :schedule, %{})
   @days_as_atoms {:zero, :mon, :tue, :wed, :thu, :fri, :sat, :sun}
@@ -59,7 +60,8 @@ defmodule Drizzle.Scheduler do
   defp execute_scheduled_events do
     if current_time() == 0 || is_nil(TodaysEvents.current_state()) do
       IO.puts("Restarting todays events")
-      TodaysEvents.reset()
+      TodaysEvents.restart()
+      Weather.get_todays_forecast()
       TodaysEvents.update(Map.get(@schedule, current_day_of_week()))
     end
 
