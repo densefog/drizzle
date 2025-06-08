@@ -17,6 +17,8 @@ config :drizzle,
   },
   appid: System.get_env("WWO_API_KEY"),
   utc_offset: -4,
+  # {hours, minutes} when to reset schedule
+  reset_time: {8, 55},
   winter_months: [:jan, :feb, :mar, :apr, :oct, :nov, :dec],
   # winter_months: [],
   soil_moisture_sensor: nil,

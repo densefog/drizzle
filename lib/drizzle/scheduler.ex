@@ -12,6 +12,7 @@ defmodule Drizzle.Scheduler do
   @schedule Application.compile_env(:drizzle, :schedule, %{})
   @days_as_atoms {:zero, :mon, :tue, :wed, :thu, :fri, :sat, :sun}
   @utc_offset Application.compile_env(:drizzle, :utc_offset, 0)
+  @reset_time Application.compile_env(:drizzle, :reset_time, {0, 0})
 
   def start_link(_args) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -57,8 +58,13 @@ defmodule Drizzle.Scheduler do
     time.hour * 100 + time.minute
   end
 
+  defp get_reset_time do
+    {hour, minute} = @reset_time
+    hour * 100 + minute
+  end
+
   defp execute_scheduled_events do
-    if current_time() == 0 || is_nil(TodaysEvents.current_state()) do
+    if current_time() == get_reset_time() || is_nil(TodaysEvents.current_state()) do
       IO.puts("Restarting todays events")
       TodaysEvents.restart()
       Weather.get_todays_forecast()

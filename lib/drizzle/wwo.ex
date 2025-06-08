@@ -63,6 +63,7 @@ defmodule Drizzle.WWO do
   defp fetch_weather_information(endpoint, opts) do
     case Req.get(endpoint, params: opts) do
       {:ok, %Req.Response{status: 200, body: body}} ->
+        Logger.info("Weather information fetched successfully:" <> inspect(body))
         {:ok, body}
 
       {:ok, %Req.Response{status: 404}} ->
