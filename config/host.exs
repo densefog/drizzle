@@ -8,15 +8,20 @@ config :drizzle, DrizzleUiWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__),
-      env: %{"NODE_OPTIONS" => "--openssl-legacy-provider"}
-    ]
+    esbuild: {Esbuild, :install_and_run, [:drizzle, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:drizzle, ~w(--watch)]}
   ]
+
+# watchers: [
+#   node: [
+#     "node_modules/webpack/bin/webpack.js",
+#     "--mode",
+#     "development",
+#     "--watch-stdin",
+#     cd: Path.expand("../assets", __DIR__),
+#     env: %{"NODE_OPTIONS" => "--openssl-legacy-provider"}
+#   ]
+# ]
 
 config :drizzle,
   available_watering_times: %{
@@ -129,3 +134,25 @@ config :nerves_runtime,
        "a.nerves_fw_platform" => "host",
        "a.nerves_fw_version" => "0.0.0"
      }}
+
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.17.11",
+  drizzle: [
+    args:
+      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+# Configure tailwind (the version is required)
+config :tailwind,
+  version: "3.4.3",
+  drizzle: [
+    args: ~w(
+           --config=tailwind.config.js
+           --input=css/app.css
+           --output=../priv/static/assets/app.css
+         ),
+    cd: Path.expand("../assets", __DIR__)
+  ]

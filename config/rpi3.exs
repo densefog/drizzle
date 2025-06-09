@@ -8,15 +8,20 @@ config :drizzle, DrizzleUiWeb.Endpoint,
   code_reloader: false,
   check_origin: false,
   watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__),
-      env: %{"NODE_OPTIONS" => "--openssl-legacy-provider"}
-    ]
+    esbuild: {Esbuild, :install_and_run, [:drizzle, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:drizzle, ~w(--watch)]}
   ]
+
+# watchers: [
+#   node: [
+#     "node_modules/webpack/bin/webpack.js",
+#     "--mode",
+#     "development",
+#     "--watch-stdin",
+#     cd: Path.expand("../assets", __DIR__),
+#     env: %{"NODE_OPTIONS" => "--openssl-legacy-provider"}
+#   ]
+# ]
 
 # Watch static and templates for browser reloading.
 # config :drizzle, DrizzleUiWeb.Endpoint,

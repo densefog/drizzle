@@ -113,6 +113,8 @@ config :drizzle, DrizzleUiWeb.Endpoint,
   live_view: [signing_salt: "zBVPFycz"],
   server: true
 
+# adapter: Bandit.PhoenixAdapter
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

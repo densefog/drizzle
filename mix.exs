@@ -16,7 +16,8 @@ defmodule Drizzle.MixProject do
       build_embedded: true,
       deps: deps(),
       releases: [{@app, release()}],
-      preferred_cli_target: [run: :host, test: :host]
+      preferred_cli_target: [run: :host, test: :host],
+      aliases: aliases()
     ]
   end
 
@@ -65,7 +66,17 @@ defmodule Drizzle.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:heroicons,
+       github: "tailwindlabs/heroicons",
+       tag: "v2.1.1",
+       sparse: "optimized",
+       app: false,
+       compile: false,
+       depth: 1}
+
       # {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
@@ -79,6 +90,24 @@ defmodule Drizzle.MixProject do
       include_erts: &Nerves.Release.erts/0,
       steps: [&Nerves.Release.init/1, :assemble],
       strip_beams: Mix.env() == :prod or [keep: ["Docs"]]
+    ]
+  end
+
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to install project dependencies and perform other setup tasks, run:
+  #
+  #     $ mix setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
+    [
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind drizzle_test", "esbuild drizzle_test"],
+      "assets.deploy": [
+        "tailwind drizzle_test --minify",
+        "esbuild drizzle_test --minify",
+        "phx.digest"
+      ]
     ]
   end
 end

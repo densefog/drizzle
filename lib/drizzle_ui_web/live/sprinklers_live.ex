@@ -58,6 +58,7 @@ defmodule DrizzleUiWeb.SprinklersLive do
   end
 
   def handle_event("run_selected", _value, socket) do
+    IO.puts("run selected")
     socket = update(socket, :zones, &ZoneManager.run_selected/1)
     {:noreply, socket}
   end
