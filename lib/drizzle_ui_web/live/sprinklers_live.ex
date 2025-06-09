@@ -1,4 +1,4 @@
-defmodule DrizzleUiWeb.ThermostatLive do
+defmodule DrizzleUiWeb.SprinklersLive do
   use DrizzleUiWeb, :live_view
 
   alias DrizzleUi.ZoneManager
